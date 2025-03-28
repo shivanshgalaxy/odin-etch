@@ -1,2 +1,2 @@
 # odin-etch
-Running in the 90's
+Make pixel art using this
