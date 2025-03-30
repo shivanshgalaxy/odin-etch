@@ -1,6 +1,6 @@
 const container = document.querySelector(".canvas-container");
-
 const colorSelector = document.querySelector("#color-selector");
+const gridSizeSlider = document.querySelector("#grid-size");
 
 let color = "#000";
 let isRainbowMode = false;
@@ -28,7 +28,9 @@ function changeColor(event) {
     }
 }
 
-function createGrid(canvasSize=16){
+function createGrid(){
+    const canvasSize = gridSizeSlider.value;
+    container.innerHTML = "";
     for (let rows = 0; rows < canvasSize **  2; ++rows) {
         const cell = document.createElement("div");
         cell.style.flex = `1 1 calc(100% / ${canvasSize})`;
@@ -52,6 +54,7 @@ function setActive(event) {
     currentActive.classList.remove("active");
     event.target.classList.add("active");
 }
+
 
 const colorButton = document.querySelector("#color");
 colorButton.addEventListener("click", (event) => {
@@ -85,9 +88,16 @@ eraseButton.addEventListener("click", (event) => {
 
 const clearButton = document.querySelector("#clear");
 clearButton.addEventListener("click", () => {
-    const canvas = document.querySelector(".canvas-container");
-    canvas.innerHTML = "";
     createGrid();
+})
+
+gridSizeSlider.addEventListener("change", (event) => {
+    createGrid();
+})
+
+gridSizeSlider.addEventListener("input", (event) => {
+    const gridSizeLabel = document.querySelector("#grid-size-label");
+    gridSizeLabel.textContent = `${event.target.value} x ${event.target.value}`;
 })
 
 let isDown = false;
