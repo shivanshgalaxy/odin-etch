@@ -4,16 +4,27 @@ const colorSelector = document.querySelector("#color-selector");
 
 let color = "#000";
 let isRainbowMode = false;
+let isTransparentMode = false;
 
 colorSelector.addEventListener("input", (event) => {
     color = event.target.value;
 })
 
 function changeColor(event) {
-    const degrees = Math.floor(Math.random() * 360) + 1;
-    const setColor = isRainbowMode ? `hsl(${degrees} 100% 50%)` : color;
-
-    event.target.style.backgroundColor = `${setColor}`;
+    if(isTransparentMode) {
+        const currentColor = event.target.style.backgroundColor;
+        const colorElements = currentColor.split(",");
+        const red = colorElements[0].replace("rgb(", "");
+        const green = colorElements[1].trim();
+        const blue = colorElements[2].trim().replace(")", "");
+        let alpha = colorElements[3];
+        alpha = alpha === undefined ? 1 : alpha;
+        event.target.style.backgroundColor = `rgba(${red}, ${green}, ${blue}, ${alpha - 0.1})`
+    } else {
+        const degrees = Math.floor(Math.random() * 360) + 1;
+        const setColor = isRainbowMode ? `hsl(${degrees} 100% 50%)` : color;
+        event.target.style.backgroundColor = `${setColor}`;
+    }
 }
 
 function createGrid(canvasSize=16){
@@ -21,6 +32,7 @@ function createGrid(canvasSize=16){
         const cell = document.createElement("div");
         cell.style.flex = `1 1 calc(100% / ${canvasSize})`;
         cell.style.aspectRatio = "1 / 1";
+        cell.style.backgroundColor = "rgb(255, 255, 255)";
         cell.addEventListener("mouseover", (event) => {
             if (isDown) {
                 changeColor(event);
@@ -43,6 +55,7 @@ function setActive(event) {
 const colorButton = document.querySelector("#color");
 colorButton.addEventListener("click", (event) => {
     isRainbowMode = false;
+    isTransparentMode = false;
     setActive(event);
     color = colorSelector.value;
 })
@@ -50,19 +63,23 @@ colorButton.addEventListener("click", (event) => {
 const rainbowButton = document.querySelector("#rainbow");
 rainbowButton.addEventListener("click", (event) => {
     isRainbowMode = true;
+    isTransparentMode = false;
     setActive(event);
 });
 
 const transparentButton = document.querySelector("#transparency");
 transparentButton.addEventListener("click", (event) => {
+    isRainbowMode = false;
+    isTransparentMode = true;
     setActive(event);
 });
 
 const eraseButton = document.querySelector("#erase");
 eraseButton.addEventListener("click", (event) => {
     isRainbowMode = false;
+    isTransparentMode = false;
     setActive(event);
-    color = "#fff";
+    color = "rgba(255, 255, 255, 1)";
 })
 
 const clearButton = document.querySelector("#clear");

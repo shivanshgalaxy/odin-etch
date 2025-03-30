@@ -76,6 +76,7 @@ button:hover {
 }
 
 .canvas-container {
+    background-color: black;
     align-self: center;
     margin: 20px;
     display: flex;
