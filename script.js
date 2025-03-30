@@ -14,12 +14,13 @@ function changeColor(event) {
     if(isTransparentMode) {
         const currentColor = event.target.style.backgroundColor;
         const colorElements = currentColor.split(",");
-        const red = colorElements[0].replace("rgb(", "");
+        const red = colorElements[0].replace("rgb(", "").replace("rgba(", "");
         const green = colorElements[1].trim();
         const blue = colorElements[2].trim().replace(")", "");
         let alpha = colorElements[3];
-        alpha = alpha === undefined ? 1 : alpha;
-        event.target.style.backgroundColor = `rgba(${red}, ${green}, ${blue}, ${alpha - 0.1})`
+        alpha = alpha === undefined ? "1" : alpha;
+        alpha = Number(alpha.replace(")", "")) - 0.1;
+        event.target.style.backgroundColor = `rgba(${red}, ${green}, ${blue}, ${alpha})`;
     } else {
         const degrees = Math.floor(Math.random() * 360) + 1;
         const setColor = isRainbowMode ? `hsl(${degrees} 100% 50%)` : color;
