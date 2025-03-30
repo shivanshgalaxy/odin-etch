@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
 body {
     font-family: "Pixelify Sans", monospace;
     margin: 0;
@@ -6,9 +8,11 @@ body {
 }
 
 .header {
+    background-color: #ececec;
     text-align: center;
     font-size: 64px;
-    margin: 20px;
+    padding: 20px;
+    margin-bottom: 50px;
 }
 
 .menu-container {
@@ -20,12 +24,55 @@ body {
     align-items: center;
 }
 
-.menu {
+.settings {
+    border-radius: 20px;
+    background-color: #e5e5e5;
     display: flex;
     flex-direction: column;
+    gap: 20px;
     align-items: center;
-    border: 3px solid #000;
-    width: 100px;
+    padding: 20px;
+}
+
+input[type=color] {
+    width: 80px;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    border: none;
+}
+
+input[type=color]::-webkit-color-swatch-wrapper  {
+    padding: 0;
+}
+
+input[type=color]::-webkit-color-swatch {
+    border: none;
+    border-radius: 50%;
+}
+
+input[type=color]::-moz-color-swatch {
+    border: none;
+    border-radius: 50%;
+}
+
+button {
+    font-family: Poppins, "sans-serif";
+    font-size: 15px;
+    border: solid 1px black;
+    border-radius: 5px;
+    width: 200px;
+    padding: 10px 40px;
+    transition: all 0.1s ease-in-out;
+}
+
+button.active {
+    background-color: black;
+    color: white;
+}
+
+button:hover {
+    transform: scale(1.05);
 }
 
 .canvas-container {

@@ -9,8 +9,16 @@
 <body>
 <div class="header">Etch-a-sketch</div>
 <div class="menu-container">
-    <div class="menu">
+    <div class="settings">
+        <label for="color-selector"></label>
+        <input type="color" id="color-selector" name="color-selector"/>
+        <button id="color" class="active">Color mode</button>
+        <button id="rainbow">Rainbow mode</button>
+        <button id="transparency">Transparency</button>
+        <button id="erase">Erase</button>
         <button id="clear">Clear</button>
+        <label for="grid-size"></label>
+        <input type="range" id="grid-size" name="grid-size" min="1" max="100" value="16" step="1">
     </div>
     <div class="canvas-container">
     </div>
